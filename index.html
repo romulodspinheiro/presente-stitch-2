@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presente do Rômulo</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+    img {
+      max-width: 200px;
+      margin-bottom: 20px;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #444;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #666;
+    }
+    #messages p {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <img src="stitch.png" alt="Stitch" />
+  <div id="main">
+    <p>Se você está aqui, é porque Rômulo já entregou seu presente.</p>
+    <button onclick="notYet()">Ainda não recebi</button>
+    <button onclick="already()">Já recebi meu presente</button>
+  </div>
+
+  <div id="notYetMessage" style="display:none;">
+    <p>Volte mais tarde. Depois que receber, você descobrirá.</p>
+  </div>
+
+  <div id="messages" style="display:none;"></div>
+
+  <script>
+    const messages = [
+      '<p>Lembra dessa mensagem?</p><img src="stitch_msg.png" alt="Mensagem">',
+      'Infelizmente não pude encontrar em tamanho real.',
+      'Mas esse é bem mais fofo e é o próximo do que poderia te entregar.',
+      'Até penso que a gente tem um stitch dentro da gente.',
+      'Às vezes é fofo e na outra hora é birrento.'
+    ];
+
+    let current = 0;
+
+    function notYet() {
+      document.getElementById("main").style.display = "none";
+      document.getElementById("notYetMessage").style.display = "block";
+    }
+
+    function already() {
+      document.getElementById("main").style.display = "none";
+      document.getElementById("messages").style.display = "block";
+      showMessage();
+    }
+
+    function showMessage() {
+      const container = document.getElementById("messages");
+      container.innerHTML = `<p>${messages[current]}</p>`;
+      if (current < messages.length - 1) {
+        const nextBtn = document.createElement("button");
+        nextBtn.textContent = "Próximo";
+        nextBtn.onclick = () => {
+          current++;
+          showMessage();
+        };
+        container.appendChild(nextBtn);
+      }
+    }
+  </script>
+</body>
+</html>
